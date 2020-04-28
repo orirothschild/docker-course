@@ -1,0 +1,48 @@
+version: '3.7'
+services:
+    web:
+      container_name: basic
+      stdin_open: true
+      build: 
+        #where to look for dockerfile
+        context: .
+        #naming the docker file
+        dockerfile: Dockerfile.dev
+      ports:
+        - "3001:3001"
+      volumes:
+        - /app/node_modules
+        - .:/app
+      networks:
+         - net
+    tests:
+      container_name: basic-test
+      stdin_open: true
+      build: 
+        #where to look for dockerfile
+        context: .
+        #naming the docker file
+        dockerfile: Dockerfile.dev
+      volumes:
+        - /app/node_modules
+        - .:/app
+      command: ["npm","run","test"]
+    web-prod:
+      container_name: basic-prod
+      stdin_open: true
+      build: 
+        #where to look for dockerfile
+        context: .
+        #naming the docker file
+        dockerfile: Dockerfile
+      ports:
+        - "8181:80"
+      volumes:
+        - /app/node_modules
+        - .:/app
+      networks:
+          - net
+networks:
+  net:
+    driver: bridge
+    
