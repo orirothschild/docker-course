@@ -3,7 +3,7 @@
 FROM node:alpine as builder
 #where all athe fiels will be stored and executed
 WORKDIR '/app'
-COPY package*.json .
+COPY package.json .
 #RUN will execute a command
 RUN npm install
 COPY . .
