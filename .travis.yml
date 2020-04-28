@@ -7,3 +7,16 @@ before_install:
 
 script:
     - docker run -e CI=true ori/docker-basic npm run test 
+
+deploy:
+    provider: elasticbeanstalk
+    region: "us-east-1"
+    app: "docker-basic"
+    env: "DockerBasic-env"
+    bucket_name: "elasticbeanstalk-us-east-1-201546747467"
+    bucket_path: "docker-basic"
+    on:
+      branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key:
+      secure:  $AWS_SECRET_KEY
